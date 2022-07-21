@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+  // write component tests here
   return (
     <div className="App">
       <header className="App-header">

@@ -1,0 +1,22 @@
+{
+  "name": "fullstack-react-blog-app",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "cd client && npm run build",
+    "client": "cd client && npm start",
+    "install": "cd client && npm install",
+    "start": "if-env NODE_ENV=production && npm run start: prod || npm run start:dev",
+    "start:dev": "concurrently --kill-others \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^7.3.0"
+  }
+}

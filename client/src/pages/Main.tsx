@@ -1,4 +1,5 @@
 import React from 'react';
+import Posts from '../components/Posts';
 // import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 // import Category, Header, Posts
 
@@ -7,7 +8,10 @@ function Main() {
     // <Header>
     // <Posts />
     // </Header>
-    <div>meow</div>
+    <>
+      <Posts />
+      <div>meow</div>
+    </>
   );
 }
 

@@ -1,0 +1,20 @@
+.navbar{
+    background-color: rgb(45, 44, 44);
+}
+
+.navbar__container {
+    margin: 0 auto;
+    width: 80%;
+    color:aliceblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar__right {
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+

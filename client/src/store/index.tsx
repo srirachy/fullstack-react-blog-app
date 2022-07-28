@@ -4,7 +4,7 @@ import exampleReducer from './exampleSlice';
 
 export const store = configureStore({
   reducer: {
-    exampleReducer,
+    example:exampleReducer,
   },
 });
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Category from '../components/Category/Category';
 import Posts from '../components/Posts';
 
 type PostData = {
@@ -31,6 +32,7 @@ function Main() {
   return (
     <>
       <Posts posts={posts} />
+      <Category />
       <div>meow</div>
     </>
   );

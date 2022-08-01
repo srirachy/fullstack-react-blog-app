@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+type ExampleTypes = {};
+
+const initialState = {} as ExampleTypes;
+
 export const exampleSlice = createSlice({
   name: 'example',
-  initialState: {
-    user: 'meow',
-  },
+  initialState,
   reducers: {
     changeName: (state) => {
       return state;

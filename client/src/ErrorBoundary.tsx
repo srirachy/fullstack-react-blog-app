@@ -1,26 +1,33 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 
-interface Props {
+type Props = {
   children: ReactNode;
-}
-interface State {
-  hasError: boolean
-}
+};
+type State = {
+  hasError: boolean;
+};
 // # Error boundaries are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in component constructors full the whole tree below them.
 class ErrorBoundary extends Component<Props, State> {
-
   // ? MUST return an updated state object and MUST NOT trigger side effects
-  static getDerivedStateFromError(error: Error) {
-    return { error };
+  constructor(state: Props | Readonly<Props>) {
+    super(state);
+    this.state = { hasError: false };
+  }
+
+  public static getDerivedSTateFromError(_: Error): State {
+    console.log(_);
+    return { hasError: true };
   }
 
   // ? CAN trigger side effects; commonly used to log out any errors
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.log(error, errorInfo);
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.log('Uncaught error:', error, errorInfo);
   }
 
-  render() {
-    if (this.state.hasError) {
+  public render() {
+    const { hasError } = this.state;
+    const { children } = this.props;
+    if (hasError) {
       return (
         <>
           <h1>An error has occurred in a child component!</h1>
@@ -34,7 +41,7 @@ class ErrorBoundary extends Component<Props, State> {
       );
     }
 
-    return this.props.children;
+    return <div>{children}</div>;
   }
 }
 

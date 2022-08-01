@@ -21,6 +21,7 @@ type ThePost = {
 //   title: string;
 //   author: string;
 // };
+//
 
 function Posts({ posts }: PostsProps<Object[]>) {
   console.log(posts);

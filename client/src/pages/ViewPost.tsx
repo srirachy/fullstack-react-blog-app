@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getData } from '../utils/API';
 
 type CurrentPost = {
   id: number | string;
@@ -15,10 +16,8 @@ function ViewPost() {
   const [curPost, setCurPost] = useState<CurrentPost>();
   useEffect(() => {
     const fetchPost = async () => {
-      const res = await fetch(`http://localhost:3000/posts/${id}`);
-      const json = await res.json();
-      console.log(json);
-      setCurPost(json);
+      const res = await getData(`posts/${id}`);
+      setCurPost(res.data);
     };
     fetchPost();
   }, [id]);

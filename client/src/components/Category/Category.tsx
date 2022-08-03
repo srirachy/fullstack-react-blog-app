@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import './Category.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory, setCategory } from '../../store/exampleSlice';
+import { getData } from '../../utils/API';
 
 function Category() {
   const [categories, setCategories] = useState([]);
@@ -12,9 +13,8 @@ function Category() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:3000/categories/');
-      const json = await res.json();
-      setCategories(json);
+      const res = await getData('categories/');
+      setCategories(res.data);
     };
     fetchData();
   }, []);

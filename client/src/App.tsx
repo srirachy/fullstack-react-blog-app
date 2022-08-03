@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/index';
+import Navbar from './components/Navbar/Navbar';
 import AddPost from './pages/AddPost';
 import SignUp from './pages/signup';
 import Main from './pages/Main';
 import ViewPost from './pages/ViewPost';
+import SubmitPost from './pages/SubmitPost';
 
 function App() {
   return (

@@ -1,9 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-// import { RootState } from '.';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from '../store/index.jsx';
 
-type ExampleTypes = {};
+type ExampleTypes = {
+  category: string;
+};
 
-const initialState = {} as ExampleTypes;
+const initialState = {
+  category: '',
+} as ExampleTypes;
 
 export const exampleSlice = createSlice({
   name: 'example',
@@ -12,16 +16,16 @@ export const exampleSlice = createSlice({
     changeName: (state) => {
       return state;
     },
-    // setCategory: (state, action) => {
-    //   state.category = action.payload;
-    // },
+    setCategory: (state, action: PayloadAction<string>) => {
+      // const category = payload;
+      // return category;
+      state.category = action.payload;
+    },
   },
 });
 
-export const { changeName } = exampleSlice.actions;
-// export const { changeName, setCategory } = exampleSlice.actions;
+export const { changeName, setCategory } = exampleSlice.actions;
 
-// export const getCategory = (state: RootState) =>
-//   state.example.category;
+export const getCategory = (state: RootState) => state;
 
 export default exampleSlice.reducer;

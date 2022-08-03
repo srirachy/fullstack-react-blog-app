@@ -31,9 +31,9 @@
       }
     }
   },
-  "parserOptions": {
-    "ecmaVersion":"latest",
-    "sourceType": "module",
-    "project": "./tsconfig.json"
-  }
+    "parserOptions": {
+      "ecmaVersion":"latest",
+      "sourceType": "module",
+      "project": "./tsconfig.json"
+  } 
 }

@@ -6,29 +6,22 @@ const TempWrapper = styled.div``;
 
 const PostWrapper = styled.div``;
 
-type PostsProps<PostData> = {
-  posts: PostData;
+type PostsProps = {
+  posts: Post[];
 };
 
-// PLACEHOLDER THEPOST TYPE
-type ThePost = {
-  [key: string]: any;
+type Post = {
+  id: number | string;
+  title: string;
+  author: string;
 };
 
-// THEPOST TYPE WE WANT TO USE
-// type ThePost = {
-//   id: number | string;
-//   title: string;
-//   author: string;
-// };
-//
-
-function Posts({ posts }: PostsProps<Object[]>) {
+function Posts({ posts }: PostsProps) {
   console.log(posts);
 
   return (
     <TempWrapper>
-      {posts.map((post: ThePost) => {
+      {Object.values(posts).map((post: Post) => {
         console.log(post);
         return (
           <Link to={`/post/${post.id}`}>

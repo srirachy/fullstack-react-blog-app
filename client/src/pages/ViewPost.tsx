@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 type CurrentPost = {
-  id: number;
+  id: number | string;
   title: string;
   author: string;
 };

@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 import Category from '../components/Category/Category';
-import Posts from '../components/Posts';
+import Posts from '../components/Post/Posts';
+import Tooltip from '../utils/Tooltip';
 
 type PostData = {
   id: number;
@@ -12,6 +16,7 @@ const initPosts: PostData[] = [];
 
 function Main() {
   const [posts, setPosts] = useState<PostData[]>(initPosts);
+  const [showTooltip, setShowTooltip] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,6 +37,30 @@ function Main() {
   return (
     <>
       <Posts posts={posts} />
+      {/* temp spot for adding post */}
+      <Link to="/submit">
+        {showTooltip && (
+          <Tooltip
+            text="add post"
+            id="meowTip"
+            effect="solid"
+            place="bottom"
+          />
+        )}
+        <button
+          data-tip
+          data-for="meowTip"
+          type="button"
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => {
+            setShowTooltip(false);
+            setTimeout(() => setShowTooltip(true), 50);
+          }}
+        >
+          <FontAwesomeIcon icon={faPlusSquare} />
+        </button>
+      </Link>
+      {/* end temp spot for add post */}
       <Category />
       <div>meow</div>
     </>

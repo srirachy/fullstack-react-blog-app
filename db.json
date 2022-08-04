@@ -12,5 +12,6 @@
     { "name": "typicode" },
     { "name": "me"}  
   ],
-  "categories": ["Nature","Science","Technology","Sports"]
+  "communities": ["Nature","Science","Technology","Sports"],
+  "author": [{ "name": "buttons" }]
 }

@@ -5,7 +5,7 @@ import AddPost from './pages/AddPost';
 import SignUp from './pages/signup';
 import Main from './pages/Main';
 import ViewPost from './pages/ViewPost';
-import SubmitPost from './pages/SubmitPost';
+// import SubmitPost from './pages/SubmitPost';
 
 function App() {
   return (

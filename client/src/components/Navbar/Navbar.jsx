@@ -22,7 +22,7 @@ function Navbar() {
       <NavLink to="/" />
       {/* <Bars /> */}
       <NavMenu>
-        <NavLink to="/submit" activeStyle>
+        <NavLink to="/submit">
           {showTooltip && (
             <Tooltip
               text="add post"
@@ -44,7 +44,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faPlusSquare} />
           </button>
         </NavLink>
-        <NavLink to="/" activeStyle>
+        <NavLink to="/">
           {showTempTooltip && (
             <Tooltip
               text="placeholder"
@@ -66,7 +66,7 @@ function Navbar() {
             <FontAwesomeIcon icon={faHouse} />
           </button>
         </NavLink>
-        <NavLink to="/sign-up" activeStyle>
+        <NavLink to="/sign-up" activestyle="true">
           Sign Up
         </NavLink>
         {/* Second Nav */}

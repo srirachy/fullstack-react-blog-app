@@ -1,13 +1,14 @@
 // import { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
-import Category from '../components/Category/Category';
+import Community from '../components/Community/Community';
 import Posts from '../components/Post/Posts';
-import { getData } from '../utils/API';
+import API from '../utils/API';
 
 type PostData = {
-  id: number;
+  id: number | string;
   author: string;
   title: string;
+  _id: number | string;
 };
 
 const initPosts: PostData[] = [];
@@ -17,25 +18,22 @@ function Main() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getData('posts/');
+      const res = await API.getData('api/posts/');
       setPosts(res.data);
+      console.log(res.data);
     };
     fetchData();
   }, []);
 
   useEffect(() => {
     if (posts) {
-      console.log(Object.values(posts).map((post) => post.id));
-      const match = Object.values(posts).find(
-        (post) => post.id === 1,
-      );
-      console.log(match, 'meow');
+      console.log(posts);
     }
   }, [posts]);
   return (
     <>
       <Posts posts={posts} />
-      <Category />
+      <Community />
       <div>meow</div>
     </>
   );

@@ -7,12 +7,15 @@ const postSchema = new Schema({
     // could look into validator/validation later
     default: 'meow',
   },
-  author: String,
   body: String,
   community: {
     type: Schema.Types.ObjectId,
     ref: 'Community',
   },
+  userName: {
+    type: Schema.Types.ObjectId,
+    ref: 'Profile'
+  }
 });
 
 const Post = model('Post', postSchema);

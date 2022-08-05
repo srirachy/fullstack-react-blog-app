@@ -1,10 +1,10 @@
 // import React from 'react';
 import { configureStore } from '@reduxjs/toolkit';
-import exampleReducer from './exampleSlice';
+import communityReducer from './communitySlice';
 
 export const store = configureStore({
   reducer: {
-    example: exampleReducer,
+    community: communityReducer,
   },
 });
 

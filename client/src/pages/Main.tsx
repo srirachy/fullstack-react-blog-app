@@ -21,6 +21,7 @@ function Main() {
       const res = await API.getData('api/posts/');
       setPosts(res.data);
       console.log(res.data);
+      console.log(res.data.id);
     };
     fetchData();
   }, []);

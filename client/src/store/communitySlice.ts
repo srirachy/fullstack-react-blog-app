@@ -3,7 +3,8 @@ import axios from 'axios';
 import type { RootState } from './index.js';
 
 type ComTypes = {
-  name: String;
+  uniqueName: String;
+  displayName: String;
 };
 
 type CommunityTypes = {
@@ -30,8 +31,11 @@ export const getCommunities = createAsyncThunk(
 
 export const addCommunity = createAsyncThunk(
   'communities/addCommunity',
-  async (commName: String) => {
-    const newComm = { name: commName };
+  async ({ uniqueName, displayName }: ComTypes) => {
+    const newComm = {
+      uniqueName: uniqueName,
+      displayName: displayName,
+    };
     const res = await axios.post(
       'http://localhost:9000/api/communities',
       newComm,

@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 function Community() {
   // const [communities, setCommunities] = useState<string[]>([]);
-  const [newCommunity, setNewCommunity] = useState('');
+  const [newCommunity, setNewCommunity] = useState<string>('');
   // const [selectedCommunity, setSelectedCommunity] = useState('');
   const dispatch = useAppDispatch();
   const { community } = useAppSelector(
@@ -39,7 +39,12 @@ function Community() {
   const addNew = () => {
     console.log(newCommunity);
     console.log('imma send it');
-    dispatch(addCommunity(newCommunity));
+    const lcName = newCommunity.toLowerCase();
+    const testObj = {
+      uniqueName: lcName,
+      displayName: newCommunity,
+    };
+    dispatch(addCommunity(testObj));
     setNewCommunity('');
   };
 
@@ -50,7 +55,9 @@ function Community() {
         <select onChange={handleCommunity}>
           <option value="">All</option>
           {Object.values(community).map((com: any) => {
-            return <option key={com.name}>{com.name}</option>;
+            return (
+              <option key={com.uniqueName}>{com.displayName}</option>
+            );
           })}
         </select>
         <button type="button" onClick={viewCommunityPosts}>

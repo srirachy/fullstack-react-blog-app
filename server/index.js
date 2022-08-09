@@ -2,7 +2,6 @@ const express = require('express');
 const logger = require('morgan');
 const cors = require('cors');
 const db = require('./models');
-const CommunityTest = require('./models/Community');
 const router = express.Router();
 const mongoo = require('mongoose');
 mongoo.connect('mongodb://localhost:27017/blog');
@@ -26,6 +25,12 @@ app.get('/api/posts', async (req, res) => {
   // add try catches
   console.log(posts);
   res.send(posts);
+  // const postFindId = await db.Post.find({}).lean().exec(function(error, records) {
+  //   records.forEach(function(record) {
+  //     console.log(record._id);
+  //     console.log('meowyyyy')
+  //   })
+  // })
 });
 
 app.get('/api/communities', async (req, res) => {
@@ -47,11 +52,24 @@ app.get('/api/profiles', async (req, res) => {
 
 app.post('/api/communities', async (req, res) => {
   const comm = new db.Community({
-    name: req.body.name,
+    uniqueName: req.body.uniqueName,
+    displayName: req.body.displayName,
   })
   await comm.save();
   res.send(comm);
 });
+
+app.post('/api/posts', async (req, res) => {
+  const newPost = new db.Post({
+    title: req.body.title,
+    body: req.body.body,
+    community: req.body.community,
+    userName: req.body.userName,
+    slugifiedName: req.body.slugifiedName,
+  })
+  await newPost.save();
+  res.send(newPost);
+})
 
 app.listen(PORT, () => {
   console.log('server now listening');

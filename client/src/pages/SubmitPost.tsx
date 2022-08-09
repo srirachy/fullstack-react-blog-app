@@ -80,7 +80,11 @@ function SubmitPost() {
     const sName = funcs.slugify(`${theTitle}`);
     setTitle(`${theTitle}`);
     setBody(`${theBody}`);
-    setCommunity(`${theCommunity}`);
+    if (theCommunity) {
+      setCommunity(`${theCommunity}`);
+    } else {
+      setCommunity(`${comm[0].displayName}`);
+    }
     setUserName(userName); // may need to change this later when user auth is good
     setSlugifiedName(sName);
     setSendDispatch(true);
@@ -120,7 +124,6 @@ function SubmitPost() {
             onChange={handleCommunity}
             value={theCommunity}
           >
-            <option value="">All</option>
             {Object.values(comm).map((com: CommunityProps) => {
               return (
                 <option key={nanoid()}>{com.displayName}</option>

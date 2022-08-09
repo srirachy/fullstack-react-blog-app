@@ -19,7 +19,8 @@ app.use(cors());
 // get creates/listens routes to first parameter name and responses to the route
 app.get('/api/posts', async (req, res) => {
   // console.log('hit the route ciz we wanna verify we jhit prroperly');
-  // console.log(req.url);
+  console.log(req.url);
+  console.log(req);
   const posts = await db.Post.find().populate('community'); //populate is good to translate hashed values to actual values
   //db.Post.create()
   // add try catches

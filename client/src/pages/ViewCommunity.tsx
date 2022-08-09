@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { shallowEqual } from 'react-redux';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { nanoid } from 'nanoid';
-import { RootState } from '../../store';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { getPosts } from '../../store/postSlice';
+import { RootState } from '../store';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { getPosts } from '../store/postSlice';
 
 const TempWrapper = styled.div``;
 
@@ -19,7 +19,8 @@ type PostProps = {
   slugifiedName: String;
 };
 
-function Posts() {
+function ViewCommunity() {
+  const { community: cName } = useParams();
   const dispatch = useAppDispatch();
   const { posts } = useAppSelector(
     (state: RootState) => state.posts,
@@ -35,6 +36,12 @@ function Posts() {
     dispatch(getPosts());
   }, [dispatch]);
 
+  console.log(cName);
+
+  useEffect(() => {
+    if (cName) console.log(cName);
+  });
+
   return (
     <TempWrapper>
       {Object.values(posts).map((post: PostProps) => {
@@ -42,10 +49,11 @@ function Posts() {
         let cObj;
         if (post) {
           cObj = community.find((comm) => {
-            return comm.displayName === post.community ? comm : '';
+            return comm.uniqueName === cName ? comm : '';
           });
         }
-        return (
+        console.log(cObj);
+        return post.community === cObj?.displayName ? (
           <Link
             // /c/${community.slugifiedName}/${post.slugifiedName}
             to={`/c/${cObj?.uniqueName}/post/${post.slugifiedName}`}
@@ -56,10 +64,12 @@ function Posts() {
               <p>{post.userName}</p>
             </PostWrapper>
           </Link>
+        ) : (
+          ''
         );
       })}
     </TempWrapper>
   );
 }
 
-export default Posts;
+export default ViewCommunity;

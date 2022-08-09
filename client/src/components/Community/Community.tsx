@@ -1,12 +1,19 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import './Community.css';
 import { shallowEqual } from 'react-redux';
+import { nanoid } from 'nanoid';
 import {
   addCommunity,
   getCommunities,
 } from '../../store/communitySlice';
 import { RootState } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import funcs from '../../utils/Functions';
+
+type CommunityProps = {
+  uniqueName: String;
+  displayName: String;
+};
 
 function Community() {
   // const [communities, setCommunities] = useState<string[]>([]);
@@ -39,40 +46,45 @@ function Community() {
   const addNew = () => {
     console.log(newCommunity);
     console.log('imma send it');
-    const lcName = newCommunity.toLowerCase();
-    const testObj = {
+    const lcName = funcs.slugify(newCommunity);
+    const commObj = {
       uniqueName: lcName,
       displayName: newCommunity,
     };
-    dispatch(addCommunity(testObj));
+    dispatch(addCommunity(commObj));
     setNewCommunity('');
   };
 
   return (
     <div>
       <div>
-        <h1>View By Community</h1>
-        <select onChange={handleCommunity}>
-          <option value="">All</option>
-          {Object.values(community).map((com: any) => {
-            return (
-              <option key={com.uniqueName}>{com.displayName}</option>
-            );
-          })}
-        </select>
+        <label htmlFor="setCommunity">
+          View By Community:
+          <select onChange={handleCommunity} id="setCommunity">
+            <option value="">All</option>
+            {Object.values(community).map((com: CommunityProps) => {
+              return (
+                <option key={nanoid()}>{com.displayName}</option>
+              );
+            })}
+          </select>
+        </label>
         <button type="button" onClick={viewCommunityPosts}>
           View Community Post
         </button>
       </div>
       <div>
-        <h1>Add New Community</h1>
-        <input
-          type="Community Name"
-          value={newCommunity}
-          onChange={(e) => setNewCommunity(e.target.value)}
-        />
+        <label htmlFor="addCommunity">
+          Add New Community:
+          <input
+            id="addCommunity"
+            type="Community Name"
+            value={newCommunity}
+            onChange={(e) => setNewCommunity(e.target.value)}
+          />
+        </label>
         <button type="button" onClick={addNew}>
-          Add Community
+          Add
         </button>
       </div>
     </div>

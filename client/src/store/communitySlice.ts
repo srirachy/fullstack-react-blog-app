@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import type { RootState } from './index.js';
 
-type ComTypes = {
+type CommunityProps = {
   uniqueName: String;
   displayName: String;
 };
@@ -10,7 +10,7 @@ type ComTypes = {
 type CommunityTypes = {
   loading: Boolean;
   error: Boolean;
-  community: ComTypes[];
+  community: CommunityProps[];
 };
 
 const initialState = {
@@ -31,10 +31,10 @@ export const getCommunities = createAsyncThunk(
 
 export const addCommunity = createAsyncThunk(
   'communities/addCommunity',
-  async ({ uniqueName, displayName }: ComTypes) => {
+  async ({ uniqueName, displayName }: CommunityProps) => {
     const newComm = {
-      uniqueName: uniqueName,
-      displayName: displayName,
+      uniqueName,
+      displayName,
     };
     const res = await axios.post(
       'http://localhost:9000/api/communities',

@@ -1,26 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import API from '../utils/API';
 
 type CurrentPost = {
-  id: number | string;
-  title: string;
-  author: string;
+  title: String;
+  body: String;
+  community: String;
+  userName: String;
+  stringifiedName: String;
 };
 
 const PostWrapper = styled.div``;
 
 function ViewPost() {
-  const { id } = useParams();
+  // const { id } = useParams();
   const [curPost, setCurPost] = useState<CurrentPost>();
+  // useEffect(() => {
+  //   const fetchPost = async () => {
+  //     const res = await API.getData(`api/posts/${id}`);
+  //     setCurPost(res.data);
+  //   };
+  //   fetchPost();
+  // }, [id]);
   useEffect(() => {
-    const fetchPost = async () => {
-      const res = await API.getData(`api/posts/${id}`);
-      setCurPost(res.data);
-    };
-    fetchPost();
-  }, [id]);
+    setCurPost({
+      title: 'meow',
+      body: 'meow meow meow',
+      community: 'meowy',
+      userName: 'mrmeow',
+      stringifiedName: 'meow-meow-meow',
+    });
+  }, []);
 
   useEffect(() => {
     if (curPost) {

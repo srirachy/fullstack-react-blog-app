@@ -1,7 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 const communitySchema = new Schema({
-  name: String,
+  uniqueName: {
+    type: String,
+    unique: true,
+  },
+  displayName: String,
 });
 
 const Community = model('Community', communitySchema);

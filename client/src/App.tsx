@@ -14,10 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/submit" element={<SubmitPost />} />
-        <Route
-          path="/c/:communityName/post/:id"
-          element={<ViewPost />}
-        />
+        <Route path="/c/:community/post/:id" element={<ViewPost />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/c/:community" element={<ViewCommunity />} />
       </Routes>

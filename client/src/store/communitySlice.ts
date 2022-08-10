@@ -40,9 +40,7 @@ export const addCommunity = createAsyncThunk(
       'http://localhost:9000/api/communities',
       newComm,
     );
-    console.log(res);
-    console.log(newComm);
-    return newComm;
+    return res.data;
   },
 );
 

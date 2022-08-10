@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd client && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "client": "cd client && npm start",
-    "install": "cd client && npm install",
-    "start": "if-env NODE_ENV=production && npm run start: prod || npm run start:dev",
-    "start:dev": "concurrently --kill-others \"npm run client\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cd server && nodemon index.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "start:prod": "node server/index.js"
   },
   "keywords": [],
   "author": "",

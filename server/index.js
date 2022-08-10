@@ -18,20 +18,20 @@ app.use(cors());
 
 // get creates/listens routes to first parameter name and responses to the route
 app.get('/api/posts', async (req, res) => {
-  // console.log('hit the route ciz we wanna verify we jhit prroperly');
-  console.log(req.url);
   console.log(req);
-  const posts = await db.Post.find().populate('community'); //populate is good to translate hashed values to actual values
-  //db.Post.create()
-  // add try catches
+  // const posts = await db.Post.find().populate('community');
+  const posts = await db.Post.find()
   console.log(posts);
   res.send(posts);
-  // const postFindId = await db.Post.find({}).lean().exec(function(error, records) {
-  //   records.forEach(function(record) {
-  //     console.log(record._id);
-  //     console.log('meowyyyy')
-  //   })
-  // })
+});
+
+app.get('/api/posts/:id', async (req, res) => {
+  // if obj not found else 404
+  const findPost = await db.Post.findOne({
+    _id: req.params.id,
+  });
+  // console.log(findPost);
+  res.send(findPost);
 });
 
 app.get('/api/communities', async (req, res) => {
@@ -52,24 +52,17 @@ app.get('/api/profiles', async (req, res) => {
 });
 
 app.post('/api/communities', async (req, res) => {
-  const comm = new db.Community({
-    uniqueName: req.body.uniqueName,
-    displayName: req.body.displayName,
-  })
-  await comm.save();
-  res.send(comm);
+  const comm = new db.Community(req.body);
+  const dbComm = await comm.save();
+  console.log(dbComm);
+  res.send(dbComm);
 });
 
 app.post('/api/posts', async (req, res) => {
-  const newPost = new db.Post({
-    title: req.body.title,
-    body: req.body.body,
-    community: req.body.community,
-    userName: req.body.userName,
-    slugifiedName: req.body.slugifiedName,
-  })
-  await newPost.save();
-  res.send(newPost);
+  const newPost = new db.Post(req.body);
+  const dbPost = await newPost.save();
+  console.log(dbPost, " meowmeow");
+  res.send(dbPost);
 })
 
 app.listen(PORT, () => {

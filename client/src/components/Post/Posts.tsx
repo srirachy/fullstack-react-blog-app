@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { Key, useEffect } from 'react';
 import { shallowEqual } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 import { RootState } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getPosts } from '../../store/postSlice';
@@ -12,6 +11,7 @@ const TempWrapper = styled.div``;
 const PostWrapper = styled.div``;
 
 type PostProps = {
+  _id: Key | null | undefined;
   title: String;
   body: String;
   community: String;
@@ -48,8 +48,8 @@ function Posts() {
         return (
           <Link
             // /c/${community.slugifiedName}/${post.slugifiedName}
-            to={`/c/${cObj?.uniqueName}/post/${post.slugifiedName}`}
-            key={nanoid()}
+            to={`/c/${cObj?.uniqueName}/post/${post._id}`}
+            key={post._id}
           >
             <PostWrapper>
               <h3>{post.title}</h3>

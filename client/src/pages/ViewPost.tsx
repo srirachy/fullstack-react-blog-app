@@ -1,43 +1,59 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { shallowEqual } from 'react-redux';
+import { RootState } from '../store';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
+import { getPostById } from '../store/postSlice';
+// import func from '../utils/Functions';
 
-type CurrentPost = {
-  title: String;
-  body: String;
-  community: String;
-  userName: String;
-  stringifiedName: String;
-};
-
+const PageWrapper = styled.div``;
 const PostWrapper = styled.div``;
 
 function ViewPost() {
-  // const { id } = useParams();
-  const [curPost, setCurPost] = useState<CurrentPost>();
-  // useEffect(() => {
-  //   const fetchPost = async () => {
-  //     const res = await API.getData(`api/posts/${id}`);
-  //     setCurPost(res.data);
-  //   };
-  //   fetchPost();
-  // }, [id]);
-  useEffect(() => {
-    setCurPost({
-      title: 'meow',
-      body: 'meow meow meow',
-      community: 'meowy',
-      userName: 'mrmeow',
-      stringifiedName: 'meow-meow-meow',
-    });
-  }, []);
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const { post } = useAppSelector(
+    (state: RootState) => state.posts,
+    shallowEqual,
+  );
+  // const [curPost, setCurPost] = useState<CurrentPost>();
+  // const { posts } = useAppSelector(
+  //   (state: RootState) => state.posts,
+  //   shallowEqual,
+  // );
 
   useEffect(() => {
-    if (curPost) {
-      console.log(curPost);
+    if (id) {
+      dispatch(getPostById(id));
     }
-  }, [curPost]);
+  }, [dispatch, id]);
 
-  return <PostWrapper>{curPost && curPost.title}</PostWrapper>;
+  // useEffect(() => {
+  //   if (posts) {
+  //     const foundPost = Object.values(posts).find((post) => {
+  //       const slugCommName = func.slugify(`${post.community}`);
+  //       return cName === slugCommName && pName === post.slugifiedName
+  //         ? post
+  //         : '';
+  //     });
+  //     console.log(foundPost);
+  //     if (foundPost) {
+  //       setCurPost(foundPost);
+  //     }
+  //   }
+  // }, [cName, pName, posts]);
+
+  return (
+    <PageWrapper>
+      {post.title && (
+        <PostWrapper>
+          <p>{post?.title}</p>
+          <p>{post?.body}</p>
+        </PostWrapper>
+      )}
+    </PageWrapper>
+  );
 }
 
 export default ViewPost;

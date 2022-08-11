@@ -65,6 +65,11 @@ app.post('/api/posts', async (req, res) => {
   res.send(dbPost);
 })
 
+app.delete("/api/posts/delete/:id",async(req,res)=>{
+  const data = await db.Post.findByIdAndDelete(req.params.id);
+  res.send("Deleted")
+})
+
 app.listen(PORT, () => {
   console.log('server now listening');
 });

@@ -37,7 +37,6 @@ app.get('/api/posts/:id', async (req, res) => {
 app.get('/api/communities', async (req, res) => {
   const communities = await db.Community.find();
   // add try catches, bareminimum add console.log for errors in routes
-  console.log(communities);
   res.send(communities);
 });
 
@@ -54,16 +53,20 @@ app.get('/api/profiles', async (req, res) => {
 app.post('/api/communities', async (req, res) => {
   const comm = new db.Community(req.body);
   const dbComm = await comm.save();
-  console.log(dbComm);
   res.send(dbComm);
 });
 
 app.post('/api/posts', async (req, res) => {
   const newPost = new db.Post(req.body);
   const dbPost = await newPost.save();
-  console.log(dbPost, " meowmeow");
   res.send(dbPost);
-})
+});
+
+app.delete('/api/posts/:id', async (req, res) => {
+  await db.Post.findOneAndDelete({
+    _id: req.params.id,
+  });
+});
 
 app.listen(PORT, () => {
   console.log('server now listening');

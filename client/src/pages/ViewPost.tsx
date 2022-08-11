@@ -5,7 +5,7 @@ import { shallowEqual } from 'react-redux';
 import { RootState } from '../store';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { getPostById } from '../store/postSlice';
-// import func from '../utils/Functions';
+import DeletePost from '../components/Post/DeletePost';
 
 const PageWrapper = styled.div``;
 const PostWrapper = styled.div``;
@@ -17,32 +17,12 @@ function ViewPost() {
     (state: RootState) => state.posts,
     shallowEqual,
   );
-  // const [curPost, setCurPost] = useState<CurrentPost>();
-  // const { posts } = useAppSelector(
-  //   (state: RootState) => state.posts,
-  //   shallowEqual,
-  // );
 
   useEffect(() => {
     if (id) {
       dispatch(getPostById(id));
     }
   }, [dispatch, id]);
-
-  // useEffect(() => {
-  //   if (posts) {
-  //     const foundPost = Object.values(posts).find((post) => {
-  //       const slugCommName = func.slugify(`${post.community}`);
-  //       return cName === slugCommName && pName === post.slugifiedName
-  //         ? post
-  //         : '';
-  //     });
-  //     console.log(foundPost);
-  //     if (foundPost) {
-  //       setCurPost(foundPost);
-  //     }
-  //   }
-  // }, [cName, pName, posts]);
 
   return (
     <PageWrapper>
@@ -52,6 +32,7 @@ function ViewPost() {
           <p>{post?.body}</p>
         </PostWrapper>
       )}
+      <DeletePost />
     </PageWrapper>
   );
 }

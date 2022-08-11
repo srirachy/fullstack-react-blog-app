@@ -54,6 +54,7 @@ function Posts() {
             <PostWrapper>
               <h3>{post.title}</h3>
               <p>{post.userName}</p>
+              <p>{post.body}</p>
             </PostWrapper>
           </Link>
         );

@@ -77,8 +77,14 @@ export const addPost = createAsyncThunk(
   },
 );
 
+export const deletePost = createAsyncThunk(
+  'posts/deletePost',
+  async (id: String) => {
+    await axios.delete(`http://localhost:9000/api/posts/${id}`);
+  },
+);
+
 // export const updatePost = createAsyncThunk();
-// export const deletePost = createAsyncThunk();
 
 export const postSlice = createSlice({
   name: 'posts',
@@ -113,6 +119,21 @@ export const postSlice = createSlice({
       .addCase(getPostById.fulfilled, (state, { payload }) => {
         console.log(payload.data);
         state.post = payload;
+      })
+      .addCase(deletePost.pending, (state) => {
+        state.error = false;
+        state.loading = true;
+        state.posts = [];
+      })
+      .addCase(deletePost.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.error = false;
+        state.loading = false;
+      })
+      .addCase(deletePost.rejected, (state) => {
+        state.error = true;
+        state.loading = false;
+        state.posts = [];
       });
   },
 });

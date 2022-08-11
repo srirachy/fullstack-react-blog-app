@@ -37,7 +37,7 @@ function Posts() {
 
   return (
     <TempWrapper>
-      {Object.values(posts).map((post: PostProps) => {
+      {Object.values(posts).map((post: any | PostProps) => {
         console.log(post);
         let cObj;
         if (post) {
@@ -53,7 +53,8 @@ function Posts() {
           >
             <PostWrapper>
               <h3>{post.title}</h3>
-              <p>{post.userName}</p>
+              <h4>{post.userName}</h4>
+
               <p>{post.body}</p>
             </PostWrapper>
           </Link>

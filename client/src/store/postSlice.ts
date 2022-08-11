@@ -1,8 +1,19 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Key } from 'react';
 import type { RootState } from './index.js';
 
+type PostPropNoId = {
+  title: String;
+  body: String;
+  community: String;
+  userName: String;
+  slugifiedName: String;
+};
+
+// type PostProps = PostPropNoId | { _id: Key | null | undefined };
 type PostProps = {
+  _id: Key | null | undefined;
   title: String;
   body: String;
   community: String;
@@ -14,18 +25,30 @@ type PostTypes = {
   loading: Boolean;
   error: Boolean;
   posts: PostProps[];
+  post: PostProps;
 };
 
 const initialState = {
   loading: true,
   error: false,
   posts: [],
-} as PostTypes;
+  post: {},
+} as unknown as PostTypes;
 
 export const getPosts = createAsyncThunk(
   'posts/getPosts',
   async () => {
     const res = await axios.get('http://localhost:9000/api/posts');
+    return res.data;
+  },
+);
+
+export const getPostById = createAsyncThunk(
+  'posts/getPostById',
+  async (id: String) => {
+    const res = await axios.get(
+      `http://localhost:9000/api/posts/${id}`,
+    );
     return res.data;
   },
 );
@@ -38,7 +61,7 @@ export const addPost = createAsyncThunk(
     community,
     userName,
     slugifiedName,
-  }: PostProps) => {
+  }: PostPropNoId) => {
     const newPost = {
       title,
       body,
@@ -50,9 +73,7 @@ export const addPost = createAsyncThunk(
       'http://localhost:9000/api/posts',
       newPost,
     );
-    console.log(res);
-    console.log(newPost);
-    return newPost;
+    return res.data;
   },
 );
 
@@ -86,7 +107,12 @@ export const postSlice = createSlice({
         state.posts = [];
       })
       .addCase(addPost.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.posts.push(action.payload);
+      })
+      .addCase(getPostById.fulfilled, (state, { payload }) => {
+        console.log(payload.data);
+        state.post = payload;
       });
   },
 });

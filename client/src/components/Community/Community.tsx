@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import './Community.css';
 import { shallowEqual } from 'react-redux';
 import { nanoid } from 'nanoid';
+import { useNavigate } from 'react-router-dom';
 import {
   addCommunity,
   getCommunities,
@@ -18,7 +19,8 @@ type CommunityProps = {
 function Community() {
   // const [communities, setCommunities] = useState<string[]>([]);
   const [newCommunity, setNewCommunity] = useState<string>('');
-  // const [selectedCommunity, setSelectedCommunity] = useState('');
+  const [selectedCommunity, setSelectedCommunity] = useState('');
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { community } = useAppSelector(
     (state: RootState) => state.community,
@@ -34,13 +36,21 @@ function Community() {
   });
 
   const handleCommunity = (e: ChangeEvent<HTMLSelectElement>) => {
-    // setSelectedCommunity(e.target.value);
+    setSelectedCommunity(e.target.value);
     console.log(e);
   };
 
   // this will route to selected community
   const viewCommunityPosts = () => {
-    // dispatch(setCommunity(selectedCommunity));
+    if (selectedCommunity) {
+      const cObj = community.find((comm) => {
+        return comm.displayName === selectedCommunity ? comm : '';
+      });
+      console.log(cObj);
+      navigate(`/c/${cObj?.uniqueName}`);
+    } else {
+      navigate('/');
+    }
   };
 
   const addNew = () => {
@@ -58,9 +68,13 @@ function Community() {
   return (
     <div>
       <div>
-        <label htmlFor="setCommunity">
+        <label htmlFor="theCommunity">
           View By Community:
-          <select onChange={handleCommunity} id="setCommunity">
+          <select
+            onChange={handleCommunity}
+            id="theCommunity"
+            value={selectedCommunity}
+          >
             <option value="">All</option>
             {Object.values(community).map((com: CommunityProps) => {
               return (

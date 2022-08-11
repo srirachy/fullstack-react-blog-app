@@ -10,7 +10,7 @@ type NewsType = {
 
 function News() {
   const [news, setNews] = useState([]);
-  const api_key = "a3622bbc05ba48cf903c4587e734e7f1";
+  const api_key = 'a3622bbc05ba48cf903c4587e734e7f1';
 
   useEffect(() => {
     const getData = async () => {
@@ -25,9 +25,9 @@ function News() {
       <h1> News</h1>
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
         }}
       >
         {news.map((news: NewsType, index) => {

@@ -1,4 +1,5 @@
 import Community from '../components/Community/Community';
+import News from '../components/News';
 import Posts from '../components/Post/Posts';
 
 function Main() {
@@ -6,6 +7,7 @@ function Main() {
 
   return (
     <>
+    <News />
       <Posts />
       <Community />
       <div>meow</div>

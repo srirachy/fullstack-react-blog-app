@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import React, { useEffect } from 'react';
-import axios from 'axios';
-=======
 import React, { Key, useEffect } from 'react';
->>>>>>> 42dafef5b0fc92a03ee9745d2d1afcebc6a8a822
 import { shallowEqual } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
@@ -13,15 +8,10 @@ import { getPosts } from '../../store/postSlice';
 
 const TempWrapper = styled.div``;
 
-const PostWrapper = styled.div`
-`;
+const PostWrapper = styled.div``;
 
 type PostProps = {
-<<<<<<< HEAD
-  _id: String;
-=======
   _id: Key | null | undefined;
->>>>>>> 42dafef5b0fc92a03ee9745d2d1afcebc6a8a822
   title: String;
   body: String;
   community: String;
@@ -45,13 +35,6 @@ function Posts() {
     dispatch(getPosts());
   }, [dispatch]);
 
-  const deletePost = async (id: String) => {
-    const { data } = await axios.delete(`http://localhost:9000/api/posts/delete/${id}`);
-    
-    alert("Deleted");
-    window.location.reload();
-  }
-
   return (
     <TempWrapper>
       {Object.values(posts).map((post: any | PostProps) => {
@@ -63,7 +46,6 @@ function Posts() {
           });
         }
         return (
-          
           <Link
             // /c/${community.slugifiedName}/${post.slugifiedName}
             to={`/c/${cObj?.uniqueName}/post/${post._id}`}
@@ -74,11 +56,8 @@ function Posts() {
               <h4>{post.userName}</h4>
 
               <p>{post.body}</p>
-            <button type="button" onClick={()=>deletePost(post._id)}>Delete</button>
-              </PostWrapper>
-            </Link>
-           
-         
+            </PostWrapper>
+          </Link>
         );
       })}
     </TempWrapper>

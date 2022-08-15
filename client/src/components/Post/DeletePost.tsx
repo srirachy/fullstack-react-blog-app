@@ -2,6 +2,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/hooks';
 import { deletePost } from '../../store/postSlice';
 
+export function DeleteButton(props: { onClickHandler: any }) {
+  const { onClickHandler } = props;
+  return (
+    <button type="button" onClick={onClickHandler}>
+      Delete
+    </button>
+  );
+}
+
+// DeleteButton.propTypes = {
+//   props: PropTypes.object.isRequired,
+//   onClickHandler: PropTypes.function.isRequired,
+// };
+
 function DeletePost() {
   const dispatch = useAppDispatch();
   const { id } = useParams();
@@ -14,11 +28,7 @@ function DeletePost() {
     }
   };
 
-  return (
-    <button type="button" onClick={() => dispatchDelete()}>
-      Delete
-    </button>
-  );
+  return <DeleteButton onClickHandler={dispatchDelete} />;
 }
 
 export default DeletePost;

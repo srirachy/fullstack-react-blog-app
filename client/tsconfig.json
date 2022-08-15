@@ -8,7 +8,7 @@
     "lib": [
       "dom",
       "es2015",
-      "esnext"
+      "esnext",
     ],
     "jsx": "react-jsx",
     "target": "es6",

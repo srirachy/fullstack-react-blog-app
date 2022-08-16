@@ -22,7 +22,7 @@ function Navbar() {
       <NavLink to="/" />
       {/* <Bars /> */}
       <NavMenu>
-        <NavLink to="/submit">
+        <NavLink to="/submit" className="x-submitNavLink">
           {showTooltip && (
             <Tooltip
               text="add post"
@@ -41,6 +41,9 @@ function Navbar() {
               setTimeout(() => setShowTooltip(true), 50);
             }}
           >
+            <span style={{ display: 'none' }}>
+              submit link button
+            </span>
             <FontAwesomeIcon icon={faPlusSquare} />
           </button>
         </NavLink>

@@ -9,7 +9,7 @@ import ViewCommunity from './pages/ViewCommunity';
 
 function App() {
   return (
-    <>
+    <div data-testid="cmty-app-component">
       <Navbar />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -18,7 +18,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/c/:community" element={<ViewCommunity />} />
       </Routes>
-    </>
+    </div>
   );
 }
 

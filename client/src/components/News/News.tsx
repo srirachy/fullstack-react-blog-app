@@ -1,11 +1,12 @@
 import axios from 'axios';
+import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 
 type NewsType = {
-  title: String;
-  url: String;
-  urlToImage: String;
-  author: String;
+  title: string;
+  url: string;
+  urlToImage: string;
+  author: string;
 };
 
 function News() {
@@ -18,6 +19,7 @@ function News() {
         `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`,
       );
       setNews(data.articles);
+      console.log(data);
     };
     getData();
   }, []);
@@ -36,6 +38,7 @@ function News() {
           if (index < 5) {
             return (
               <div
+                key={nanoid()}
                 style={{
                   width: 250,
                   height: 350,

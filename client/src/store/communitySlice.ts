@@ -3,13 +3,13 @@ import axios from 'axios';
 import type { RootState } from './index.js';
 
 type CommunityProps = {
-  uniqueName: String;
-  displayName: String;
+  uniqueName: string;
+  displayName: string;
 };
 
 type CommunityTypes = {
-  loading: Boolean;
-  error: Boolean;
+  loading: boolean;
+  error: boolean;
   community: CommunityProps[];
 };
 
@@ -47,11 +47,7 @@ export const addCommunity = createAsyncThunk(
 export const communitySlice = createSlice({
   name: 'communities',
   initialState,
-  reducers: {
-    changeName: (state) => {
-      return state;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(getCommunities.pending, (state) => {
@@ -60,7 +56,6 @@ export const communitySlice = createSlice({
         state.community = [];
       })
       .addCase(getCommunities.fulfilled, (state, { payload }) => {
-        console.log(payload.data);
         state.error = false;
         state.loading = false;
         state.community = payload;

@@ -1,7 +1,7 @@
-import React, { Key, useEffect } from 'react';
+import { Key, useEffect } from 'react';
 import { shallowEqual } from 'react-redux';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { RootState } from '../../store';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getPosts } from '../../store/postSlice';
@@ -19,7 +19,8 @@ type PostProps = {
   slugifiedName: string;
 };
 
-function Posts() {
+function CommunityPosts() {
+  const { community: cName } = useParams();
   const dispatch = useAppDispatch();
   const { posts, reload } = useAppSelector(
     (state: RootState) => state.posts,
@@ -37,30 +38,29 @@ function Posts() {
 
   return (
     <TempWrapper>
-      {Object.values(posts).map((post: any | PostProps) => {
+      {Object.values(posts).map((post: PostProps) => {
         let cObj;
         if (post) {
           cObj = community.find((comm) => {
-            return comm.displayName === post.community ? comm : '';
+            return comm.uniqueName === cName ? comm : '';
           });
         }
-        return (
+        return post.community === cObj?.displayName ? (
           <Link
-            // /c/${community.slugifiedName}/${post.slugifiedName}
             to={`/c/${cObj?.uniqueName}/post/${post._id}`}
             key={post._id}
           >
             <PostWrapper>
               <h3>{post.title}</h3>
-              <h4>{post.userName}</h4>
-
-              <p>{post.body}</p>
+              <p>{post.userName}</p>
             </PostWrapper>
           </Link>
+        ) : (
+          ''
         );
       })}
     </TempWrapper>
   );
 }
 
-export default Posts;
+export default CommunityPosts;

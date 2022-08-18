@@ -5,9 +5,10 @@ import { deletePost } from '../../store/postSlice';
 function DeletePost() {
   const dispatch = useAppDispatch();
   const { id } = useParams();
+
   const navigate = useNavigate();
 
-  const dispatchDelete = async () => {
+  const dispatchDelete = () => {
     if (id) {
       dispatch(deletePost(id));
       navigate(-1); // go back to previous page

@@ -18,60 +18,107 @@ app.use(cors());
 
 // get creates/listens routes to first parameter name and responses to the route
 app.get('/api/posts', async (req, res) => {
-  console.log(req);
-  // const posts = await db.Post.find().populate('community');
-  const posts = await db.Post.find()
-  console.log(posts);
-  res.send(posts);
+  try{
+    const posts = await db.Post.find();
+    res.send(posts);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
 app.get('/api/posts/:id', async (req, res) => {
-  // if obj not found else 404
-  const findPost = await db.Post.findOne({
-    _id: req.params.id,
-  });
-  // console.log(findPost);
-  res.send(findPost);
+  try{
+    // if obj not found else 404
+    const findPost = await db.Post.findOne({
+      _id: req.params.id,
+    });
+    res.send(findPost);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
 app.get('/api/communities', async (req, res) => {
-  const communities = await db.Community.find();
-  // add try catches, bareminimum add console.log for errors in routes
-  res.send(communities);
+  try{
+    const communities = await db.Community.find();
+    res.send(communities);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
 app.get('/api/comments', async (req, res) => {
-  const comments = await db.Comment.find();
-  res.send(comments);
+  try{
+    const comments = await db.Comment.find();
+    res.send(comments);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
 app.get('/api/profiles', async (req, res) => {
-  const profiles = await db.Profile.find();
-  res.send(profiles);
+  try{
+    const profiles = await db.Profile.find();
+    res.send(profiles);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
 app.post('/api/communities', async (req, res) => {
   const comm = new db.Community(req.body);
-  const dbComm = await comm.save();
-  res.send(dbComm);
+  try{
+    const dbComm = await comm.save();
+    res.send(dbComm);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
 app.post('/api/posts', async (req, res) => {
   const newPost = new db.Post(req.body);
-  const dbPost = await newPost.save();
-  res.send(dbPost);
+  try {
+    const dbPost = await newPost.save();
+    res.send(dbPost);
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
 app.delete('/api/posts/:id', async (req, res) => {
-  await db.Post.findOneAndDelete({
-    _id: req.params.id,
-  });
+  try{
+    const data = await db.Post.findOneAndDelete({
+      _id: req.params.id,
+    });
+    res.end(); // !!!!!!, basically assure that we have a *response method to terminate the request cycle*
+  } catch(err) {
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
 });
 
-app.delete("/api/posts/delete/:id",async(req,res)=>{
-  const data = await db.Post.findByIdAndDelete(req.params.id);
-  res.send("Deleted")
-})
+app.put('/api/posts/:id', async (req, res) => {
+  const findPost = { _id:req.params.id };
+  const postUpdate = req.body;
+  try{
+    const data = await db.Post.findOneAndUpdate(
+      findPost,
+      postUpdate,
+      {new: true},
+    );
+    res.send(data);
+  } catch(err){
+    console.log(err);
+    res.status(400).json({message: err.message});
+  };
+});
 
 app.listen(PORT, () => {
   console.log('server now listening');

@@ -16,8 +16,8 @@ import funcs from '../utils/Functions';
 const FormWrapper = styled.div``;
 
 type CommunityProps = {
-  uniqueName: String;
-  displayName: String;
+  uniqueName: string;
+  displayName: string;
 };
 
 function SubmitPost() {
@@ -88,7 +88,6 @@ function SubmitPost() {
     setUserName(userName); // may need to change this later when user auth is good
     setSlugifiedName(sName);
     setSendDispatch(true);
-    console.log('pressed');
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

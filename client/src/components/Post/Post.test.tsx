@@ -1,7 +1,9 @@
-export {};
+import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { DeleteButton } from './DeletePost';
+
+export {};
 
 function setup(_render: any, click: () => void) {
   _render(

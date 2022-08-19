@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { nanoid } from 'nanoid';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 type NewsType = {
   title: string;

@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getPosts } from '../../store/postSlice';
 
 const TempWrapper = styled.div``;
-
 const PostWrapper = styled.div``;
 
 type PostProps = {
@@ -53,7 +52,6 @@ function Posts() {
             <PostWrapper>
               <h3>{post.title}</h3>
               <h4>{post.userName}</h4>
-
               <p>{post.body}</p>
             </PostWrapper>
           </Link>

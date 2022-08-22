@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import { shallowEqual } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import {
   addCommunity,
   getCommunities,
@@ -14,6 +15,10 @@ type CommunityProps = {
   uniqueName: string;
   displayName: string;
 };
+
+const Label = styled.div`
+  color: white;
+`;
 
 function Community() {
   const [newCommunity, setNewCommunity] = useState<string>('');
@@ -57,7 +62,7 @@ function Community() {
 
   return (
     <div>
-      <div>
+      <Label>
         <label htmlFor="theCommunity">
           View By Community:
           <select
@@ -76,8 +81,8 @@ function Community() {
         <button type="button" onClick={viewCommunityPosts}>
           View Community Post
         </button>
-      </div>
-      <div>
+      </Label>
+      <Label>
         <label htmlFor="addCommunity">
           Add New Community:
           <input
@@ -90,7 +95,7 @@ function Community() {
         <button type="button" onClick={addNew}>
           Add
         </button>
-      </div>
+      </Label>
     </div>
   );
 }

@@ -7,7 +7,6 @@ import {
 import {
   Nav,
   NavLink,
-  // Bars,
   NavMenu,
   NavBtn,
   NavBtnLink,
@@ -20,8 +19,29 @@ function Navbar() {
   return (
     <Nav>
       <NavLink to="/" />
-      {/* <Bars /> */}
       <NavMenu>
+        <NavLink to="/">
+          {showTempTooltip && (
+            <Tooltip
+              text="placeholder"
+              id="tempTip"
+              effect="solid"
+              place="bottom"
+            />
+          )}
+          <button
+            data-tip
+            data-for="tempTip"
+            type="button"
+            onMouseEnter={() => setShowTempTooltip(true)}
+            onMouseLeave={() => {
+              setShowTempTooltip(false);
+              setTimeout(() => setShowTempTooltip(true), 50);
+            }}
+          >
+            <FontAwesomeIcon icon={faHouse} />
+          </button>
+        </NavLink>
         <NavLink to="/submit" className="x-submitNavLink">
           {showTooltip && (
             <Tooltip
@@ -47,33 +67,9 @@ function Navbar() {
             <FontAwesomeIcon icon={faPlusSquare} />
           </button>
         </NavLink>
-        <NavLink to="/">
-          {showTempTooltip && (
-            <Tooltip
-              text="placeholder"
-              id="tempTip"
-              effect="solid"
-              place="bottom"
-            />
-          )}
-          <button
-            data-tip
-            data-for="tempTip"
-            type="button"
-            onMouseEnter={() => setShowTempTooltip(true)}
-            onMouseLeave={() => {
-              setShowTempTooltip(false);
-              setTimeout(() => setShowTempTooltip(true), 50);
-            }}
-          >
-            <FontAwesomeIcon icon={faHouse} />
-          </button>
-        </NavLink>
         <NavLink to="/sign-up" activestyle="true">
           Sign Up
         </NavLink>
-        {/* Second Nav */}
-        {/* <NavBtnLink to='/sign-in'>Sign In</NavBtnLink> */}
       </NavMenu>
       <NavBtn>
         <NavBtnLink to="/signin">Sign In</NavBtnLink>

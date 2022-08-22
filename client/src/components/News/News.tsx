@@ -25,49 +25,60 @@ function News() {
   }, []);
 
   return (
-    <>
-      <h1> News</h1>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        {news.map((newsItem: NewsType, index) => {
-          if (index < 5) {
-            return (
-              <div
-                key={nanoid()}
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '60px',
+      }}
+    >
+      {news.map((newsItem: NewsType, index) => {
+        if (index < 5) {
+          return (
+            <div
+              key={nanoid()}
+              style={{
+                width: 250,
+                height: 350,
+                marginRight: 20,
+                background: 'white',
+                borderRadius: 20,
+              }}
+            >
+              <img
+                src={String(newsItem.urlToImage)}
+                alt="tes"
                 style={{
-                  width: 250,
-                  height: 350,
-                  marginRight: 20,
-                  background: 'white',
-                  boxShadow: '3px 0px 23px 1px rgba(0,0,0,0.35)',
+                  width: '100%',
+                  objectFit: 'contain',
                   borderRadius: 20,
                 }}
+              />
+              <div
+                style={{
+                  padding: 10,
+                  objectFit: 'contain',
+                  wordBreak: 'break-all',
+                  whiteSpace: 'pre-wrap',
+                  overflow: 'hidden',
+                }}
               >
-                <img
-                  src={String(newsItem.urlToImage)}
-                  alt="tes"
-                  style={{ width: '100%', objectFit: 'contain' }}
-                />
-                <div
+                <h4>{newsItem.author}</h4>
+                <p
                   style={{
-                    padding: 10,
+                    objectFit: 'contain',
                   }}
                 >
-                  <h4>{newsItem.author}</h4>
-                  <p>{newsItem.title}</p>
-                </div>
+                  {newsItem.title}
+                </p>
               </div>
-            );
-          }
-          return '';
-        })}
-      </div>
-    </>
+            </div>
+          );
+        }
+        return '';
+      })}
+    </div>
   );
 }
 

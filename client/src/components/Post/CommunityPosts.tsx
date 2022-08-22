@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { getPosts } from '../../store/postSlice';
 
 const TempWrapper = styled.div``;
-
 const PostWrapper = styled.div``;
 
 type PostProps = {

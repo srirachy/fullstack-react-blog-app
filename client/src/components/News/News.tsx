@@ -2,13 +2,20 @@ import { nanoid } from 'nanoid';
 import React, { useEffect, useState } from 'react';
 import styles from 'styled-components';
 import { getNews } from '../../services/API';
+import generic_news from '../../img/generic_news.jpg';
 
 const NewsWrapper = styles.div`
   overflow: hidden;
   max-width: 60%;
   height: 20%;
   margin: 0 auto;
-  padding: 0;
+  border-radius: 12px;
+  background-color: #dae0e6;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding-bottom: 20px;
+  h3 {
+    padding: 5px;
+  }
 `;
 const CardWrapper = styles.div`
   display: flex;
@@ -24,25 +31,33 @@ const CardWrapper = styles.div`
   }
 `;
 
-const LinkWrapper = styles.div`
+const LinkWrapper = styles.div<LinkProps>`
   display: flex;
-  width: 100px;
-  height: 80px;
+  width: 250px;
+  height: 160px;
+  background-image: ${(props) =>
+    props.isImg ? `url(${props.img})` : `url(${generic_news})`};
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0 5px;
   padding: 0;
   p {
-    font-size: 0.4rem;
+    font-size: 0.7rem;
     color: #ffffff;
     text-align: center;
   }
 `;
 
 const NewsItemWrapper = styles.div`
+  background-color: rgba(0, 0, 0, 0.35);
   display: flex;
   align-self: flex-end;
 `;
+
+type LinkProps = {
+  img: string;
+  isImg: boolean;
+};
 
 type NewsType = {
   title: string;
@@ -71,13 +86,17 @@ function News() {
 
   return (
     <NewsWrapper>
-      <h5>News Today</h5>
+      <h3>News Today</h3>
       <CardWrapper>
         {news.map((newsItem: NewsType, index) => {
           if (index < 5) {
             console.log(newsItem);
             const newsText = convertText(newsItem.title);
-
+            const bkgdImg = newsItem.urlToImage;
+            let isImg = false;
+            if (bkgdImg) {
+              isImg = true;
+            }
             return (
               <a
                 href={newsItem.url}
@@ -86,12 +105,10 @@ function News() {
               >
                 <LinkWrapper
                   key={nanoid()}
-                  style={{
-                    backgroundImage: `url('${newsItem.urlToImage}')`,
-                  }}
+                  isImg={isImg}
+                  img={bkgdImg}
                 >
                   <NewsItemWrapper>
-                    {/* <img src={newsItem.urlToImage} alt="tes" /> */}
                     <p>{newsText}</p>
                   </NewsItemWrapper>
                 </LinkWrapper>

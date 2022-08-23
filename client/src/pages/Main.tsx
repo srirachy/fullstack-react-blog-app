@@ -15,6 +15,8 @@ function Main() {
     <Space>
       <News />
       <HomePage />
+      {/* <Posts />
+      <Community /> */}
     </Space>
   );
 }

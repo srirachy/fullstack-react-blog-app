@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styles from 'styled-components';
 import { getNews } from '../../services/API';
 import generic_news from '../../img/generic_news.jpg';
+import funcs from '../../utils/Functions';
 
 const NewsWrapper = styles.div`
   overflow: hidden;
@@ -10,7 +11,12 @@ const NewsWrapper = styles.div`
   height: 20%;
   margin: 0 auto;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.2)
+  background-color: rgba(218, 224, 230, 0.3);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding-bottom: 20px;
+  h3 {
+    padding: 5px;
+  }
 `;
 const CardWrapper = styles.div`
   display: flex;
@@ -30,7 +36,7 @@ const CardWrapper = styles.div`
 const LinkWrapper = styles.div<LinkProps>`
   display: flex;
   width: 85%;
-  height: 12vh;
+  height: 15vh;
   background-image: ${(props) =>
     props.isImg ? `url(${props.img})` : `url(${generic_news})`};
   background-size: cover;
@@ -73,24 +79,19 @@ function News() {
     getData();
   }, []);
 
-  function convertText(curString: string) {
-    if (curString.length > 65) {
-      return `${curString.substring(0, 65)}...`;
-    }
-    return curString;
-  }
-
   return (
     <NewsWrapper>
       <CardWrapper>
         {news.map((newsItem: NewsType, index) => {
           if (index < 5) {
             console.log(newsItem);
-            const newsText = convertText(newsItem.title);
+            const newsText = funcs.convertText(newsItem.title);
             const bkgdImg = newsItem.urlToImage;
             let isImg = false;
             if (bkgdImg) {
               isImg = true;
+            } else {
+              isImg = false;
             }
             return (
               <a

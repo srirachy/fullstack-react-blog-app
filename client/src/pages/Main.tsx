@@ -8,7 +8,6 @@ function Main() {
       <News />
       <Posts />
       <Community />
-      <div>meow</div>
     </>
   );
 }

@@ -12,10 +12,16 @@ import { addPost } from '../store/postSlice';
 import { getCommunities } from '../store/communitySlice';
 import { useAppDispatch, useAppSelector } from '../store/hooks';
 import funcs from '../utils/Functions';
+import bright_star from '../img/bright_star.jpg';
 
 const PageWrapper = styled.div`
-  width: 100vw;
+  max-width: 100vw;
   height: 100vh;
+  background-image: url(${bright_star});
+  background-repeat: 'no-repeat';
+  background-position: 'center center';
+  background-attachment: 'fixed';
+  background-size: 'cover';
   h2 {
     text-align: center;
   }
@@ -23,9 +29,11 @@ const PageWrapper = styled.div`
 
 const FormWrapper = styled.div`
   width: 80vw;
-  height: 80vh;
+  max-height: 100vh;
   margin: 0 auto;
   padding: 2vw;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
   label {
     display: flex;
     flex-direction: column;
@@ -39,15 +47,26 @@ const FormWrapper = styled.div`
   }
 `;
 
-const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.div<ButtonProps>`
   display: flex;
   justify-content: flex-end;
-  margin: 5px auto;
+  button {
+    margin: 20px auto;
+    max-width: 20vw;
+    background-color: ${(props) =>
+      props.isDisabled ? '' : '#30495c'};
+    color: #ffffff;
+    border-radius: 12px;
+  }
 `;
 
 type CommunityProps = {
   uniqueName: string;
   displayName: string;
+};
+
+type ButtonProps = {
+  isDisabled: boolean;
 };
 
 function SubmitPost() {
@@ -58,6 +77,7 @@ function SubmitPost() {
   const [slugifiedName, setSlugifiedName] = useState('');
   const [community, setCommunity] = useState('');
   const [sendDispatch, setSendDispatch] = useState(false);
+  const [submitState, setSubmitState] = useState(true);
   const [formObj, setFormObj] = useState({
     theTitle: '',
     theBody: '',
@@ -72,6 +92,16 @@ function SubmitPost() {
   useEffect(() => {
     dispatch(getCommunities());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (theTitle && theBody) {
+      console.log('button should be enabled');
+      setSubmitState(false);
+    } else {
+      console.log('button should be disabled');
+      setSubmitState(true);
+    }
+  }, [theBody, theTitle]);
 
   const handleCommunity = (e: ChangeEvent<HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -134,8 +164,8 @@ function SubmitPost() {
 
   return (
     <PageWrapper>
-      <h2>Add Post</h2>
       <FormWrapper>
+        <h2>Add Post</h2>
         <form onSubmit={handleFormSubmit}>
           <label htmlFor="theTitle">
             Title:
@@ -170,8 +200,10 @@ function SubmitPost() {
               })}
             </select>
           </label>
-          <ButtonWrapper>
-            <button type="submit">Add Post</button>
+          <ButtonWrapper isDisabled={submitState}>
+            <button type="submit" disabled={submitState}>
+              Add Post
+            </button>
           </ButtonWrapper>
         </form>
       </FormWrapper>

@@ -16,9 +16,9 @@ import { getCommunities } from '../../store/communitySlice';
 import funcs from '../../utils/Functions';
 
 const ModalBkgd = styled.div`
-  width: 100vw;
+  max-width: 100vw;
   height: 100vh;
-  background-color: rgba(200, 200, 200);
+  background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
   display: flex;
   justify-content: center;
@@ -33,6 +33,7 @@ const ModalWrapper = styled.section`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
   padding: 25px;
 `;
 
@@ -48,7 +49,36 @@ const CloseButtonWrapper = styled.div`
   }
 `;
 
-const ModalFormWrapper = styled.div``;
+const ModalFormWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  label {
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    height: 100%;
+    text-align: left;
+    margin: 0 auto;
+    #theBody {
+      min-height: 200px;
+    }
+  }
+  button {
+    margin-top: 10px;
+    width: 90%;
+  }
+  #submitButton {
+    color: #ffffff;
+    background-color: #30495c;
+    border-radius: 12px;
+  }
+  #cancelButton {
+    color: #ffffff;
+    background-color: #5c150f;
+    border-radius: 12px;
+  }
+`;
 
 type CommunityProps = {
   uniqueName: string;
@@ -151,6 +181,13 @@ function EditPostModal({ post }: PostType) {
     setFormObj({ ...formObj, [id]: value });
   };
 
+  const handleTextAreaChange = (
+    e: ChangeEvent<HTMLTextAreaElement>,
+  ) => {
+    const { id, value } = e.target;
+    setFormObj({ ...formObj, [id]: value });
+  };
+
   const dispatchEditor = () => {
     dispatch(setEditor(false));
   };
@@ -176,11 +213,10 @@ function EditPostModal({ post }: PostType) {
             </label>
             <label htmlFor="theBody">
               Body:
-              <input
+              <textarea
                 id="theBody"
-                type="string"
                 value={theBody}
-                onChange={handleInputChange}
+                onChange={handleTextAreaChange}
               />
             </label>
             <label htmlFor="theCommunity">
@@ -197,8 +233,14 @@ function EditPostModal({ post }: PostType) {
                 })}
               </select>
             </label>
-            <button type="submit">Submit</button>
-            <button type="button" onClick={() => dispatchEditor()}>
+            <button type="submit" id="submitButton">
+              Submit
+            </button>
+            <button
+              type="button"
+              id="cancelButton"
+              onClick={() => dispatchEditor()}
+            >
               Cancel
             </button>
           </form>

@@ -11,7 +11,7 @@ const NewsWrapper = styles.div`
   height: 20%;
   margin: 0 auto;
   border-radius: 12px;
-  background-color: rgba(218, 224, 230, 0.5);
+  background-color: rgba(218, 224, 230, 0.3);
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   padding-bottom: 20px;
   h3 {
@@ -20,10 +20,11 @@ const NewsWrapper = styles.div`
 `;
 const CardWrapper = styles.div`
   display: flex;
+  top-padding: 25px;
   max-width: 100%;
   max-height: 100%;
   flex-direction: row;
-  padding: 0;
+  padding: 0px;
   a {
     max-width: 100%;
     height: 100%;
@@ -41,7 +42,6 @@ const LinkWrapper = styles.div<LinkProps>`
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0 5px;
-  padding: 0;
   p {
     font-size: 0.7rem;
     color: #ffffff;
@@ -53,6 +53,7 @@ const NewsItemWrapper = styles.div`
   background-color: rgba(0, 0, 0, 0.35);
   display: flex;
   align-self: flex-end;
+  border-radius: 25px;
 `;
 
 type LinkProps = {
@@ -80,7 +81,6 @@ function News() {
 
   return (
     <NewsWrapper>
-      <h3>News Today</h3>
       <CardWrapper>
         {news.map((newsItem: NewsType, index) => {
           if (index < 5) {

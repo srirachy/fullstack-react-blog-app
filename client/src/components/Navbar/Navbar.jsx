@@ -7,7 +7,6 @@ import {
 import {
   Nav,
   NavLink,
-  // Bars,
   NavMenu,
   NavBtn,
   NavBtnLink,

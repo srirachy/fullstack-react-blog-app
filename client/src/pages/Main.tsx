@@ -1,14 +1,23 @@
-import Community from '../components/Community/Community';
+import styled from 'styled-components';
 import News from '../components/News/News';
-import Posts from '../components/Post/Posts';
+import img from '../img/Space.jpg';
+import HomePage from './HomePage';
+
+const Space = styled.div`
+  background-image: url(${img});
+  position: relative;
+  // max-width: 100vw;
+  // height: 100vh;
+`;
 
 function Main() {
   return (
-    <>
+    <Space>
       <News />
-      <Posts />
-      <Community />
-    </>
+      <HomePage />
+      {/* <Posts />
+      <Community /> */}
+    </Space>
   );
 }
 

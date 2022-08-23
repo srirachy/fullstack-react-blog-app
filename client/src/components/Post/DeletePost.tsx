@@ -1,20 +1,27 @@
 import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import { useAppDispatch } from '../../store/hooks';
 import { deletePost } from '../../store/postSlice';
+
+const DeleteWrapper = styled.div`
+  button {
+    min-width: 20vw;
+    color: #ffffff;
+    background-color: #5c150f;
+    border-radius: 12px;
+  }
+`;
 
 export function DeleteButton(props: { onClickHandler: any }) {
   const { onClickHandler } = props;
   return (
-    <button type="button" onClick={onClickHandler}>
-      Delete
-    </button>
+    <DeleteWrapper>
+      <button type="button" onClick={onClickHandler}>
+        Delete
+      </button>
+    </DeleteWrapper>
   );
 }
-
-// DeleteButton.propTypes = {
-//   props: PropTypes.object.isRequired,
-//   onClickHandler: PropTypes.function.isRequired,
-// };
 
 function DeletePost() {
   const dispatch = useAppDispatch();

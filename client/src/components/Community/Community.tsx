@@ -20,6 +20,12 @@ const Label = styled.div`
   color: white;
 `;
 
+const Right = styled.div`
+  position: relative;
+  top: 0px;
+  right: 0px;
+`;
+
 function Community() {
   const [newCommunity, setNewCommunity] = useState<string>('');
   const [selectedCommunity, setSelectedCommunity] = useState('');
@@ -61,7 +67,7 @@ function Community() {
   };
 
   return (
-    <div>
+    <Right>
       <Label>
         <label htmlFor="theCommunity">
           View By Community:
@@ -96,7 +102,7 @@ function Community() {
           Add
         </button>
       </Label>
-    </div>
+    </Right>
   );
 }
 
